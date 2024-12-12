@@ -1,0 +1,12 @@
+%=
+table <table name>
+<column 1> <data>
+<column 2> <data>
+...
+=%
+%=
+table <table name>
+<column 1> <data>
+<column 2> <data>
+...
+=%

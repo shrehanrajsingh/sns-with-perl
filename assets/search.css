@@ -1,0 +1,158 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+nav {
+    /* background-color: inherit; */
+    background-color: rgb(229, 229, 229);
+    border-bottom: 1px solid rgb(48, 54, 66);
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* border: 1px solid black; */
+}
+
+nav ul li {
+    display: inline;
+    padding-right: 2%;
+    margin-right: 5%;
+    /* border: 1px solid blue; */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #222;
+}
+
+.nav-img {
+    padding: 1%;
+    display: flex;
+}
+
+#panel ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: rgb(200, 200, 200);
+    border-bottom: 1px solid rgb(48, 54, 66);
+}
+
+#panel ul li {
+    /* background-color: purple; */
+    padding: 1%;
+    cursor: pointer;
+    width: 30%;
+    text-align: center;
+}
+
+#panel ul li:hover {
+    background-color: rgb(229, 229, 229) !important;
+}
+
+#panel ul li:first-child {
+    background-color: rgb(229, 229, 229);
+}
+
+#windows {
+    width: 100%;
+    /* border: 1px solid black; */
+    min-height: 100vh;
+}
+
+.window:not(:first-child) {
+    display: none;
+}
+
+.window {
+    min-height: 100vh;
+    padding: 1%;
+}
+
+.window h4 {
+    font-size: 1.5rem;
+}
+
+#userdata {
+    display: flex;
+    padding: 1%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    padding: 1%;
+    width: 50%;
+    border: 0.2px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    margin: 1%;
+    transition: 0.2s;
+    cursor: pointer;
+    min-width: 400px;
+}
+
+.user:hover {
+    transform: scale(1.01);
+}
+
+.user-img img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 2%;
+}
+
+.user-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.ud-uname {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.ud-email {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #555;
+}
+
+.user-data hr {
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0.5px solid #333;
+}

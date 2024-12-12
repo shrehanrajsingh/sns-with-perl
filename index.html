@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets.cgi?name=index2.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-img">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/IIT_Kharagpur_Logo.svg/400px-IIT_Kharagpur_Logo.svg.png"
+                alt="Logo" width="32" height="32">
+        </div>
+        <ul>
+            <li><a href="./home.cgi">Home</a></li>
+            <li><a href="#loginform">Login</a></li>
+            <li><a href="#signupform">Signup</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Contribute</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+    <header>
+        <div id="title">
+            <div class="tc">
+                <h1>
+                    <span class="extra-sp-fw">MyForum:</span> a retro social
+                    networking platform
+                    <hr width="80">
+                </h1>
+            </div>
+            <div class="tc">
+                <div class="contact">
+                    <h2>Contact the developer</h2>
+
+                    <form action="#">
+                        <input type="email" placeholder="Email" name="cdemail" id="cdemail">
+                        <br>
+                        <textarea name="cdmsg" id="cdmsg" placeholder="Message"></textarea>
+                        <br>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="cont-top">
+
+            <div class="container" id="loginform">
+                <form action="./login.cgi" method="post">
+                    <h3>Login
+                        <hr>
+                    </h3>
+                    <label for="uname">Username </label>
+                    <input type="text" name="uname" id="uname">
+                    <br>
+
+                    <label for="upwd">Password </label>
+                    <input type="password" name="upwd" id="upwd">
+
+                    <center>
+                        <button type="reset">Reset</button>
+                        <button type="submit">Login</button>
+                    </center>
+                </form>
+            </div>
+            <div class="container" id="signupform">
+                <form action="./signup.cgi" method="post">
+                    <h3>Signup
+                        <hr>
+                    </h3>
+                    <label for="suemail">Email </label>
+                    <input type="email" name="suemail" id="suemail">
+                    <br>
+
+                    <label for="suname">Username </label>
+                    <input type="text" name="suname" id="suname">
+                    <br>
+
+                    <label for="supwd">Password </label>
+                    <input type="password" name="supwd" id="supwd">
+                    <br>
+
+                    <label for="upwd">Repeat password </label>
+                    <input type="password" name="urppwd" id="urppwd">
+
+                    <center>
+                        <button type="reset">Reset</button>
+                        <button type="submit">Create account</button>
+                    </center>
+
+                    <br><br>
+                </form>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

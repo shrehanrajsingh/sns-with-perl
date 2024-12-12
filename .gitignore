@@ -1,0 +1,7 @@
+database/*
+.vstags
+notes.*
+user_uid
+envvars
+.DS_Store
+assets/.DS_Store

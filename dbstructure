@@ -1,0 +1,16 @@
+Begin Headers
+    Delimeter=,
+End Headers
+
+Begin Table
+    Name=users
+
+    Begin Column
+        Name=ID
+        Type=Int|String
+    End Column
+
+    Begin Column
+        Name=uname
+    End Column
+End Table

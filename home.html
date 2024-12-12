@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyHome</title>
+    <link rel="stylesheet" href="assets.cgi?name=home.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav id="sidenav">
+            <h3 id="sn-uname">={ $uname }</h3>
+            <p id="p-data">
+                email: ={ $email }
+                <br>
+                server time: ={ $_time }
+            </p>
+
+            <ul id="sn-ul">
+                <li>
+                    <form action="./search.cgi" method="get" id="searchform">
+                        <input type="text" placeholder="Search for users" name="phrase" autocomplete="off">
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+                <li>Home</li>
+                <li>Messages</li>
+                <li>Activity</li>
+                <li>Friends</li>
+                <li>Settings</li>
+            </ul>
+
+            <div id="sn-lbtns">
+                <button>Switch Accounts</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="main">
+        <div id="addstatus">
+            <span>What's on your mind?</span>
+            <br>
+            <form action="./add_status.cgi" method="post">
+                <input type="text" placeholder="Foxes jump over dogs" name="status">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <br><br>
+
+        <div id="allstatus">
+            ={ for %i: $allstatus }
+            ={ var j: getuser %i['UID'] }
+            <div class="dst">
+                <span class="dst-uname">
+                    ={ %j['username'] }
+                    ={ if (%j['email']) eq ($email) }
+                    (You)
+                    ={ end }
+                    shared a status update
+                </span>
+                <p class="dst-cont">
+                    ={ %i['content'] }
+                </p>
+                <span class="dst-time">
+                    <i>
+                        ={ time %i['ultime'] }
+                    </i>
+                </span>
+            </div>
+            ={ end }
+        </div>
+        <br><br>
+    </section>
+</body>
+
+<script>
+    function logout() {
+        document.cookie
+            .split(";")
+            .forEach(function (c) {
+                document.cookie = c
+                    .replace(/^ +/, "")
+                    .replace(
+                        /=.*/,
+                        "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+        location.href = './index.cgi';
+    }
+</script>
+
+</html>

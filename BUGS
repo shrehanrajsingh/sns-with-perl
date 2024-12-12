@@ -1,0 +1,12 @@
+(1)
+the template engine is not the wisest in town.
+While statements like
+<span attr='val'>
+    ={ time %i['upload_time'] }
+</span>
+work as intended. But
+<span attr='val'>={ time %i['upload_time'] }</span>
+lead to errors and the span tag "vanishes".
+Until this issue is resolved, it is recommended to
+use parsers in new, separate lines. Approach 1 is recommended
+all the way.

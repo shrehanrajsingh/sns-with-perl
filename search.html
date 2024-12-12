@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search results for &quot;={$phrase}&quot;</title>
+    <link rel="stylesheet" href="./assets.cgi?name=search.css">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-img">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/IIT_Kharagpur_Logo.svg/400px-IIT_Kharagpur_Logo.svg.png"
+                alt="Logo" width="32" height="32">
+        </div>
+        <ul>
+            <li><a href="./home.cgi">Home</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Signup</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Contribute</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+    <section id="main">
+        <div id="menu">
+            <div id="panel">
+                <ul>
+                    <li>Users</li>
+                    <li>Your status updates</li>
+                    <li>Your peers' status updates</li>
+                </ul>
+            </div>
+
+            <div id="windows">
+                <div class="window">
+                    <h4>Users</h4>
+                    <!-- <ul>
+                        ={ for %i: $usermatch }
+                        <li>
+                            ={ %i['username'] }
+                            <br>
+                            ={ %i['email'] }
+                        </li>
+                        ={ end }
+                    </ul> -->
+
+                    <div id="userdata">
+                        ={ for %i: $usermatch }
+                        <div class="user">
+                            <div class="user-img">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/IIT_Kharagpur_Logo.svg/400px-IIT_Kharagpur_Logo.svg.png"
+                                    alt="User" width="32" height="32">
+                            </div>
+                            <div class="user-data">
+                                <span class="ud-uname">={%i['username']}</span>
+                                <hr align="left">
+                                <span class="ud-email">={%i['email']}</span>
+                            </div>
+                        </div>
+                        ={ end }                        
+                    </div>
+                </div>
+                <div class="window">
+                    <h4>Your status updates</h4>
+                </div>
+                <div class="window">
+                    <h4>Your peers' status updates</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    window.onload = () => {
+        const clpanel = document.querySelectorAll('#panel ul li');
+        const clwindows = document.querySelectorAll('.window');
+
+        clpanel.forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const label = el.innerHTML;
+
+                if (label.includes('Users')) {
+                    clwindows[0].style.display = 'block';
+                    clwindows[1].style.display = 'none';
+                    clwindows[2].style.display = 'none';
+
+                    clpanel[0].style.backgroundColor = 'rgb(229, 229, 229)';
+                    clpanel[1].style.backgroundColor = 'rgb(200, 200, 200)';
+                    clpanel[2].style.backgroundColor = 'rgb(200, 200, 200)';
+
+                } else if (label.includes('peers')) {
+                    clwindows[2].style.display = 'block';
+                    clwindows[0].style.display = 'none';
+                    clwindows[1].style.display = 'none';
+
+                    clpanel[2].style.backgroundColor = 'rgb(229, 229, 229)';
+                    clpanel[0].style.backgroundColor = 'rgb(200, 200, 200)';
+                    clpanel[1].style.backgroundColor = 'rgb(200, 200, 200)';
+
+                } else {
+                    clwindows[1].style.display = 'block';
+                    clwindows[0].style.display = 'none';
+                    clwindows[2].style.display = 'none';
+
+                    clpanel[1].style.backgroundColor = 'rgb(229, 229, 229)';
+                    clpanel[0].style.backgroundColor = 'rgb(200, 200, 200)';
+                    clpanel[2].style.backgroundColor = 'rgb(200, 200, 200)';
+                }
+            });
+        });
+    };
+</script>
+
+</html>
