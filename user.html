@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>={ $uname }</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets.cgi?name=roboto.css">
+    <link rel="stylesheet" href="./assets.cgi?name=user.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="homelink">
+            <a href="./home.cgi">Home</a>
+        </div>
+        <section id="userdesc">
+            <!-- <img class="avatar" src="./assets.cgi?name=user-avatar.jpg" alt="={$uname}'s profile picture"> -->
+            <img class="avatar" src="./assets.cgi?name=user-avatar-temp.jpg" alt="avatar">
+            <h1>
+                ={$uname}
+                <hr width="40">
+            </h1>
+            <h3>={$email}</h3>
+            <h3>Last online: (Not available)</h3>
+
+            ={ if ($uname) neq ($root['username']) }
+            <div class="div-buttons">
+                <button class="btn btn-freq">Send friend request</button>
+                <button class="btn btn-block">Block</button>
+            </div>
+            ={ end }
+
+            <blockquote class="user-bio">
+                ={$uname}'s bio
+            </blockquote>
+        </section>
+        <section id="usercontent">
+            <h1>
+                Status updates
+                <hr width="40" align="left">
+            </h1>
+
+            <div id="allstatus">
+                <!-- <div class="status">
+                    <div class="topbar">
+                        <img src="./assets.cgi?name=user-avatar-temp.jpg" alt="avatar" class="prof-pic">
+                        <span>={$uname}</span>
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.
+                            Sed cursus ante dapibus diam.</p>
+                    </div>
+                    <div class="action-icons">
+                        <img class="ai-tu" src="./assets.cgi?name=htu.svg" alt="thumbs up">
+                        <span class="like-count">100</span>
+                        <img class="ai-td" src="./assets.cgi?name=htd.svg" alt="thumbs down">
+                        <span class="dislike-count">20</span>
+                    </div>
+                </div> -->
+
+                ={ for %i: $allstatus }
+                ={ var j: getuser %i['UID'] }
+                <div class="status">
+                    <div class="topbar">
+                        <img src="./assets.cgi?name=user-avatar-temp.jpg" alt="avatar" class="prof-pic">
+                        <span>
+                            ={%j['username']}
+                            &LeftAngleBracket;
+                            ={time %i['ultime']}
+                            &RightAngleBracket;</span>
+                    </div>
+                    <div class="content">
+                        <p>={%i['content']}</p>
+                    </div>
+                    <div class="action-icons">
+                        <img class="ai-tu" src="./assets.cgi?name=htu.svg" alt="thumbs up">
+                        <span class="like-count">0</span>
+                        <img class="ai-td" src="./assets.cgi?name=htd.svg" alt="thumbs down">
+                        <span class="dislike-count">0</span>
+                    </div>
+                </div>
+                ={ end }
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

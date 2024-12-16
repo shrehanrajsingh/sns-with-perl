@@ -1,0 +1,187 @@
+body {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: rgb(187, 190, 214);
+}
+
+#main {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(15, 17, 25);
+}
+
+.avatar {
+    width: 100%;
+    height: 200px;
+    border-top-right-radius: 10px;
+}
+
+#userdesc {
+    /* border: 1px solid black; */
+    /* box-shadow: 0px 2px 5px 2px rgb(64, 64, 64, 0.2); */
+    border-right: 0.1px solid rgb(70, 70, 70);
+    border-top-right-radius: 10px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100vh;
+    background-color: rgb(20, 22, 29);
+}
+
+#userdesc h1 {
+    font-weight: 300;
+    font-size: 2rem;
+    text-align: center;
+    cursor: default;
+}
+
+#userdesc h3 {
+    font-weight: 300;
+    padding-left: 10px;
+    cursor: default;
+    font-family: sans-serif;
+}
+
+.btn-freq {
+    border: 0.2px solid rgb(17, 194, 129);
+}
+
+.btn-block {
+    border: 0.2px solid rgb(194, 61, 17);
+}
+
+.div-buttons {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    box-shadow: 0px 2px 5px 2px rgb(64, 64, 64, 0.3);
+    transition: 0.2s;
+    background: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    font-size: 1rem;
+    color: rgb(187, 190, 214);
+}
+
+.btn-freq:hover {
+    background-color: rgb(89, 196, 70);
+    color: rgb(64, 64, 64);
+}
+
+.btn-block:hover {
+    background-color: rgb(194, 61, 17);
+}
+
+.user-bio {
+    /* border: 1px solid saddlebrown; */
+    border-radius: 10px;
+    height: calc(30vh - 10px);
+    box-shadow: 0px 0px 5px 2px rgb(124, 124, 124, 0.4);
+    padding: 10px;
+    font-style: italic;
+    color: rgb(149, 149, 149);
+}
+
+#usercontent {
+    position: absolute;
+    top: 0;
+    left: 31%;
+    color: rgb(187, 190, 214);
+    width: 68%;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.prof-pic {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+#allstatus {
+    width: calc(100% - 50px);
+    height: 100%;
+    padding: 20px;
+    border-left: 1px solid gray;
+}
+
+.status {
+    width: 90%;
+    min-height: 20vh;
+    box-shadow: 0px 0px 2px 1px rgb(164, 164, 164, 0.2);
+    background-color: rgb(22, 23, 28);
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 0.2px solid rgb(65, 65, 65);
+}
+
+.topbar span {
+    margin-left: 10px;
+}
+
+.content {
+    padding: 10px;
+    font-size: 1.8rem;
+}
+
+.action-icons {
+    padding: 8px;
+    border-top: 0.2px solid rgb(65, 65, 65);
+    display: flex;
+    align-items: center;
+}
+
+.ai-tu,
+.ai-td {
+    width: 32px;
+    height: 32px;
+    filter: invert(0.4);
+    cursor: pointer;
+    margin: 8px;
+}
+
+.like-count,
+.dislike-count {
+    padding: 5px;
+    border-radius: 8px;
+    color: white;
+    min-width: 20px;
+    text-align: center;
+}
+
+.like-count {
+    background-color: rgb(0, 128, 0, 0.8);
+}
+
+.dislike-count {
+    background-color: rgb(190, 41, 41, 0.8);
+}
+
+#homelink {
+    position: fixed;
+    right: 25px;
+    top: 25px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#homelink a {
+    text-decoration: none;
+    color: rgb(187, 190, 214);
+}
