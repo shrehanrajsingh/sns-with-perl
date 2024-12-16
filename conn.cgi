@@ -267,7 +267,7 @@ sub get_data {
 
 # primkey (db_name, table_name)
 # Returns the primary key for the data which will be added next.
-# Returns the number of "data chits" currently in database (4 indexed)
+# Returns the number of "data chits" currently in database (1 indexed)
 # If there are 4 data chits, primkey returns 4
 # as the next primary key for data chit (0 indexed) will be 4
 sub primkey {
