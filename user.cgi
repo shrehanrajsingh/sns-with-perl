@@ -25,8 +25,6 @@ my @gd = conn::get_data($conn::DB_NAME{user}, "users", (
     username => $name,
 ));
 
-@allstatus = sort { $b->{ultime} <=> $a->{ultime} } @allstatus;
-
 unless ( scalar @gd ) {
     print $q->header( -type => 'text/html', -status => '400 Bad Request' );
     print <<EOM;
@@ -43,6 +41,20 @@ my %hs = %{$gd[0]};
 my @allstatus = conn::get_data($conn::DB_NAME{status}, "status", (
     UID => $hs{ID}
 ));
+
+@allstatus = sort { $b->{ultime} <=> $a->{ultime} } @allstatus;
+
+for my $l (0..scalar(@allstatus)-1) {
+    my %h = %{$allstatus[$l]};
+    my @lks = conn::get_data($conn::DB_NAME{likes}, "likes", (
+        Status_ID => $h{ID}
+    ));
+
+    $allstatus[$l]{like_count} = scalar(@lks);
+    $allstatus[$l]{have_i_liked} = scalar(
+        grep { %$_{Liker_ID} == $det{ID} } @lks
+    );
+}
 
 print $q->header( 'text/html' );
 

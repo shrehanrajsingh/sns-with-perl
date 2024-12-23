@@ -24,6 +24,16 @@ my $q = new CGI;
 #     print "$conn::LAST_ERROR\n";
 # }
 
+# if ( conn::create_table($conn::DB_NAME{likes}, "likes", (
+#     ID => "Int",
+#     Status_ID => "Int",
+#     Liker_ID => "Int",
+#     Like_Type => "String", # L: like, D: dislike
+#     ltime => "String"
+# ))) {
+#     print "$conn::LAST_ERROR\n";
+# }
+
 # if ( conn::column_exists($conn::DB_NAME{user}, "users", "username") ) {
 #     print "Column exists\n";
 # }

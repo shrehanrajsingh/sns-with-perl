@@ -33,10 +33,13 @@ sub parse {
         # }
         # print "<br>";
 
-        $line =~ s/\=\{\s*\$([a-zA-Z0-9_]+)\s*\}/"$params{$1}"/e;
-        $line =~ s/\=\{\s*\$([a-zA-Z0-9_]+)\[[(\'\")]([a-zA-Z0-9_]+)[\'\"]\]\s*\}/%{$params{$1}}{$2}/e;
-        $line =~ s/\=\{\s*\%([a-zA-Z0-9_]+)\s*\}/"$lexicals{$1}"/e;
-        $line =~ s/\=\{\s*\%([a-zA-Z0-9_]+)\[[(\'\")]([a-zA-Z0-9_]+)[\'\"]\]\s*\}/%{$lexicals{$1}}{$2}/e;
+        my $pres_line = $line;
+
+        $line =~ s/\=\{\s*\$([a-zA-Z0-9_]+)\s*\}/"$params{$1}"/eg;
+        $line =~ s/\=\{\s*\$([a-zA-Z0-9_]+)\[[(\'\")]([a-zA-Z0-9_]+)[\'\"]\]\s*\}/%{$params{$1}}{$2}/eg;
+        $line =~ s/\=\{\s*\%([a-zA-Z0-9_]+)\s*\}/"$lexicals{$1}"/eg;
+        $line =~ s/\=\{\s*\%([a-zA-Z0-9_]+)\[[(\'\")]([a-zA-Z0-9_]+)[\'\"]\]\s*\}/%{$lexicals{$1}}{$2}/eg;
+        $line =~ s/\=\{\s*const\s*\"(.*)\"\}/"$1"/eg;
         $line =~ s/\\\=\{/\=\{/;
 
         if ( $line =~ m/[^\\]\=\{\s*\bfor\b\s*\%([a-zA-Z0-9_]+)\:\s*\$([a-zA-Z0-9_]+)\s*\}/ ) {
@@ -152,6 +155,7 @@ sub parse {
             my $ec = 0;
             my $j = $i + 1;
             my $p = "";
+            my $else_idx = 0;
 
             while ($j <= $clim) {
                 my $jv = $cont_split[$j];
@@ -159,6 +163,10 @@ sub parse {
                 if ( $jv =~ m/\=\{\s*for/ or
                     $jv =~ m/\=\{\s*if/ ) {
                     $ec++;
+                }
+
+                if ( $jv =~ m/\=\{\s*else\s*\}/ ) {
+                    $else_idx = $j;
                 }
 
                 if ( $jv =~ m/\=\{\s*end\s*\}/ ) {
@@ -177,8 +185,20 @@ sub parse {
             if ( ($call eq 'eq' and $arg1 eq $arg2) or
                 ($call eq 'neq' and !($arg1 eq $arg2)) ) {
                     $cont_split[$j] = "";
+
+                    if ( $else_idx ) {
+                        while ( $else_idx < $j ) {
+                            $cont_split[$else_idx] = "";
+                            $else_idx++;
+                        }
+                    }
             } else {
-                $i = $j;
+                if ( $else_idx ) {
+                    $cont_split[$j] = "";
+                    $i = $else_idx;
+                } else {
+                    $i = $j;
+                }
             }
             
             $i++;
@@ -186,6 +206,7 @@ sub parse {
         }
 
         $res = $res . "$line\n";
+
         $i++;
     }
 

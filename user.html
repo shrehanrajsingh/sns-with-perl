@@ -37,6 +37,10 @@
             </div>
             ={ end }
 
+            ={ if ($uname) eq ($root['username']) }
+            <br><br><br>
+            ={ end }
+
             <blockquote class="user-bio">
                 ={$uname}'s bio
             </blockquote>
@@ -67,7 +71,7 @@
 
                 ={ for %i: $allstatus }
                 ={ var j: getuser %i['UID'] }
-                <div class="status">
+                <div class="status" data-sid="={%i['ID']}">
                     <div class="topbar">
                         <img src="./assets.cgi?name=user-avatar-temp.jpg" alt="avatar" class="prof-pic">
                         <span>
@@ -80,8 +84,12 @@
                         <p>={%i['content']}</p>
                     </div>
                     <div class="action-icons">
+                        ={ if (%i['like_count']) eq (const "0") }
                         <img class="ai-tu" src="./assets.cgi?name=htu.svg" alt="thumbs up">
-                        <span class="like-count">0</span>
+                        ={ else }
+                        <img class="ai-tuf" src="./assets.cgi?name=htuf.svg" alt="thumbs up">
+                        ={end}
+                        <span class="like-count">={%i['like_count']}</span>
                         <img class="ai-td" src="./assets.cgi?name=htd.svg" alt="thumbs down">
                         <span class="dislike-count">0</span>
                     </div>
@@ -91,5 +99,84 @@
         </section>
     </div>
 </body>
+
+<script>
+
+    function addLike(el, aitu) {
+        fetch('./add_like.cgi', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: "sid=" + el.getAttribute('data-sid') + "&type=like"
+        }).then(res => res.text())
+            .then(data => {
+                aitu.classList.add('ai-tuf');
+                aitu.classList.remove('ai-tu');
+                aitu.nextElementSibling.innerHTML = parseInt(aitu.nextElementSibling.innerHTML) + 1;
+                aitu.setAttribute('src', './assets.cgi?name=htuf.svg');
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    function addDislike(el, aitd) {
+        fetch('./add_like.cgi', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: "sid=" + el.getAttribute('data-sid') + "&type=dislike"
+        }).then(res => res.text())
+            .then(data => {
+
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    function unlike(el, aituf) {
+        fetch('./add_like.cgi', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: "sid=" + el.getAttribute('data-sid') + "&type=unlike"
+        }).then(res => res.text())
+            .then(data => {
+                aituf.classList.add('ai-tu');
+                aituf.classList.remove('ai-tuf');
+                aituf.nextElementSibling.innerHTML = parseInt(aituf.nextElementSibling.innerHTML) - 1;
+                aituf.setAttribute('src', './assets.cgi?name=htu.svg');
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    function lkExec() {
+        const status = document.querySelectorAll('.status');
+
+        status.forEach(el => {
+            const aimg = el.querySelectorAll('.action-icons img');
+
+            aimg.forEach(a => {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (a.classList.contains('ai-tu')) {
+                        addLike(el, a);
+                    } else if (a.classList.contains('ai-td')) {
+                        addDislike(el, a);
+                    } else if (a.classList.contains('ai-tuf')) {
+                        unlike(el, a);
+                    }
+                });
+            });
+        });
+    }
+
+    window.onload = () => {
+        lkExec();
+    }
+</script>
 
 </html>

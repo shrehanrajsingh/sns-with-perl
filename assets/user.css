@@ -148,7 +148,9 @@ body {
 }
 
 .ai-tu,
-.ai-td {
+.ai-td,
+.ai-tuf,
+.ai-tdf {
     width: 32px;
     height: 32px;
     filter: invert(0.4);

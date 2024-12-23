@@ -17,6 +17,7 @@ our %DB_NAME = (
     user => "$DB_DIR/users.db",
     status => "$DB_DIR/status.db",
     user_uid => "./user_uid",
+    likes => "$DB_DIR/likes.db"
 );
 
 sub check_dbs {
@@ -180,7 +181,7 @@ sub add_data {
         return 1;
     }
 
-    open (DB_F, ">>", $db_name);
+    open(DB_F, ">>", $db_name);
     print DB_F "%=\ntable $table_name\n";
 
     for my $name (keys %data) {
@@ -189,9 +190,79 @@ sub add_data {
     }
 
     print DB_F "=%\n";
-    close (DB_F);
+    close(DB_F);
     return 0;
 };
+
+sub remove_data {
+    my $db_name = shift;
+    my $table_name = shift;
+    my %data = @_;
+
+    unless ( -e -w $db_name ) {
+        $LAST_ERROR = "db_does_not_exist";
+        return 1;
+    }
+
+    unless ( table_exists($db_name, $table_name) ) {
+        $LAST_ERROR = "table_does_not_exist";
+        return 1;
+    }
+
+    my $dt = "";
+    open(DB_F, '<', $db_name);
+
+    while (my $line = <DB_F>) {
+
+        if ( $line eq "%=\n" ) {
+            my $nl = <DB_F>;
+
+            unless ( $nl eq "table $table_name\n" ) {
+                while (!($nl eq "=%\n")) {
+                    $dt = $dt . $nl;
+                    $nl = <DB_F>;
+                }
+
+                next;
+            }
+
+            LINEIT: while (!($nl eq "=%\n")) {
+                my @spl = split(" ", $nl, 2);
+                chomp($spl[1]);
+                $dc{$spl[0]} = $spl[1];
+                # print "$spl[0]: $dc{$spl[0]}\n";
+                $nl = <DB_F>;
+            }
+
+            my $diff = 0;
+            for my $name (keys %data) {
+                unless ( exists $dc{$name} 
+                     and $data{$name} eq decrypt_bt($dc{$name}) ) {
+                        $diff = 1;
+                        last;
+                }
+            }
+
+            if ( !$diff ) {
+                for my $i (keys %dc) {
+                    $dt = $dt . "$i $dc{$i}\n";
+                }
+            }
+
+            $line = <DB_F>;
+        }
+
+        $dt = $dt . $line;
+    }
+
+    close(DB_F);
+
+    open(W_F, '>', $db_name);
+    print W_F $dt;
+
+    close(W_F);
+    return 0;
+}
 
 # get_data (db_name, table_name, data)
 sub get_data {
@@ -211,7 +282,7 @@ sub get_data {
         return @res;
     }
 
-    open (DB_F, "<", $db_name);
+    open(DB_F, "<", $db_name);
 
     while (my $line = <DB_F>) {
         if ( $line eq "%=\n" ) {
@@ -261,7 +332,7 @@ sub get_data {
         }
     }
 
-    close (DB_F);
+    close(DB_F);
     return @res;
 };
 
@@ -283,7 +354,7 @@ sub primkey {
         return 1;
     }
 
-    open (DB_F, "<", $db_name);
+    open(DB_F, "<", $db_name);
     my $ct = 0;
 
     while (my $line = <DB_F>) {
@@ -301,7 +372,7 @@ sub primkey {
         }
     }
 
-    close (DB_F);
+    close(DB_F);
     return $ct;
 };
 
